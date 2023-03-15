@@ -2,6 +2,7 @@ package com.example.climbinglog;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectedEmojiValue = Integer.parseInt(v.getTag().toString());
+
                 // You can save the value, use it for your logic, or display it somewhere
                 highlightSelectedEmoji((ImageView) v);
             }

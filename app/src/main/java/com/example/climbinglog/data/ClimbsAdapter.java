@@ -1,6 +1,7 @@
 package com.example.climbinglog.data;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class ClimbsAdapter extends RecyclerView.Adapter<ClimbsAdapter.ClimbViewH
             }
 
             int difficulty = Integer.parseInt(mClimb.getDifficulty());
+
             int emojiResource;
 
             switch (difficulty) {

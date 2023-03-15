@@ -48,7 +48,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/emoji_3"
-            android:tag="2" />
+            android:tag="3" />
 
 
         <ImageView
@@ -56,13 +56,13 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/emoji_4"
-            android:tag="2" />
+            android:tag="4" />
         <ImageView
             android:id="@+id/emoji_5"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/emoji_5"
-            android:tag="2" />
+            android:tag="5" />
     </LinearLayout>
 
 
