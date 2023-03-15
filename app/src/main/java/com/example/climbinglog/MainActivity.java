@@ -114,9 +114,19 @@ public class MainActivity extends AppCompatActivity {
 
                 // Show a toast message to indicate success
                 Toast.makeText(MainActivity.this, "Climb saved", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+
+                selectedEmojiValue = 0;
+                for (ImageView emoji :emojiImageViews){
+                    emoji.setBackground(null); // Remove highlight from all emojis
+                }
+
+                notesEditText.setText("");
+
+                climbNameSpinner.setSelection(0);
+                }
+            });
+        }
+
 
     private void highlightSelectedEmoji(ImageView selectedImageView) {
         // Remove highlight from all emojis
