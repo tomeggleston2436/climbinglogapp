@@ -18,20 +18,23 @@ public class ViewClimbsActivity extends AppCompatActivity {
     private RecyclerView mClimbsRecyclerView;
     private ClimbsAdapter mAdapter;
     private ClimbRepository mClimbRepository;
-    private ClimbRepository climbRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_climbs);
 
-
+        // Initialize the ClimbRepository
+        mClimbRepository = new ClimbRepository(ClimbingLogApplication.getInstance().getClimbDatabase().climbDao());
 
         // Initialize the RecyclerView
         mClimbsRecyclerView = findViewById(R.id.climbs_recycler_view);
 
-        // Create a new instance of the ClimbsAdapter and pass in the list of climbs
-        mAdapter = new ClimbsAdapter(getClimbs());
+        // Retrieve the LiveData object containing the list of climbs
+        LiveData<List<Climb>> liveData = getClimbs();
+
+        // Create a new instance of the ClimbsAdapter and pass in the LiveData and the ClimbRepository
+        mAdapter = new ClimbsAdapter(mClimbRepository);
 
         // Set the adapter for the RecyclerView
         mClimbsRecyclerView.setAdapter(mAdapter);
@@ -39,28 +42,18 @@ public class ViewClimbsActivity extends AppCompatActivity {
         // Set the layout manager for the RecyclerView
         mClimbsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize the ClimbRepository
-        mClimbRepository = new ClimbRepository(ClimbingLogApplication.getInstance().getClimbDatabase().climbDao());
-
-
-    }
-
-    private List<Climb> getClimbs() {
-        // Retrieve the list of climbs from the ClimbRepository using LiveData
-        List<Climb> climbs = new ArrayList<>();
-        LiveData<List<Climb>> liveData = ClimbingLogApplication.getInstance().getClimbRepository().getAllClimbs();
-
-        liveData.observe(this, new Observer<List<Climb>>()
-        {
+        // Observe changes in the LiveData object and update the adapter
+        liveData.observe(this, new Observer<List<Climb>>() {
             @Override
             public void onChanged(List<Climb> updatedClimbs) {
-                // Update the list of climbs and notify the adapter of the changes
-                climbs.clear();
-                climbs.addAll(updatedClimbs);
-
+                mAdapter.setClimbs(updatedClimbs);
                 mAdapter.notifyDataSetChanged();
             }
         });
-        return climbs;
+    }
+
+    private LiveData<List<Climb>> getClimbs() {
+        // Retrieve the list of climbs from the ClimbRepository using LiveData
+        return ClimbingLogApplication.getInstance().getClimbRepository().getAllClimbs();
     }
 }

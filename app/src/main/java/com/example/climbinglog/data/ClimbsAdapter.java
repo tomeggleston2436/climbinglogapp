@@ -5,8 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,14 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.climbinglog.R;
 import com.example.climbinglog.data.Climb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClimbsAdapter extends RecyclerView.Adapter<ClimbsAdapter.ClimbViewHolder> {
 
     private List<Climb> mClimbs;
 
-    public ClimbsAdapter(List<Climb> climbs) {
-        mClimbs = climbs;
+    private ClimbRepository climbRepository;
+    private ClimbRepository mClimbRepository;
+
+    public ClimbsAdapter(ClimbRepository climbRepository) {
+        mClimbs = new ArrayList<>();
+        mClimbRepository = climbRepository;
     }
 
     @Override
@@ -35,6 +42,32 @@ public class ClimbsAdapter extends RecyclerView.Adapter<ClimbsAdapter.ClimbViewH
     public void onBindViewHolder(ClimbViewHolder holder, int position) {
         Climb climb = mClimbs.get(position);
         holder.bind(climb, position);
+
+        Button deleteButton = holder.itemView.findViewById(R.id.delete_button);
+        // Set the click listener for the delete button
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the Climb object to be deleted
+                Climb climbToDelete = mClimbs.get(holder.getBindingAdapterPosition());
+
+                // Delete the climb from the database
+                mClimbRepository.deleteClimb(climbToDelete);
+
+                // Update the adapter's data and notify the change
+                mClimbs.remove(holder.getBindingAdapterPosition());
+                notifyDataSetChanged();
+
+                // Show a toast message to indicate success
+                Toast.makeText(holder.itemView.getContext(), "Climb deleted", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void setClimbs(List<Climb> newClimbs) {
+        mClimbs.clear();
+        if (newClimbs != null) {
+            mClimbs.addAll(newClimbs);
+        }
     }
 
     @Override
