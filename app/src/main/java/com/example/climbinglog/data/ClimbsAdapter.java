@@ -1,7 +1,5 @@
 package com.example.climbinglog.data;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.climbinglog.R;
-import com.example.climbinglog.data.Climb;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ClimbsAdapter extends RecyclerView.Adapter<ClimbsAdapter.ClimbViewHolder> {
 
     private List<Climb> mClimbs;
-
-    private ClimbRepository climbRepository;
     private ClimbRepository mClimbRepository;
+    private RecyclerView mClimbsRecyclerView;
 
-    public ClimbsAdapter(ClimbRepository climbRepository) {
+    public ClimbsAdapter(ClimbRepository climbRepository, RecyclerView recyclerView) {
         mClimbs = new ArrayList<>();
         mClimbRepository = climbRepository;
+        mClimbsRecyclerView = recyclerView;
     }
 
     @Override
@@ -44,30 +43,34 @@ public class ClimbsAdapter extends RecyclerView.Adapter<ClimbsAdapter.ClimbViewH
         holder.bind(climb, position);
 
         Button deleteButton = holder.itemView.findViewById(R.id.delete_button);
-        // Set the click listener for the delete button
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the Climb object to be deleted
                 Climb climbToDelete = mClimbs.get(holder.getBindingAdapterPosition());
-
-                // Delete the climb from the database
                 mClimbRepository.deleteClimb(climbToDelete);
 
-                // Update the adapter's data and notify the change
-                mClimbs.remove(holder.getBindingAdapterPosition());
+                int deletedPosition = holder.getBindingAdapterPosition();
+                mClimbs.remove(deletedPosition);
                 notifyDataSetChanged();
 
-                // Show a toast message to indicate success
                 Toast.makeText(holder.itemView.getContext(), "Climb deleted", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     public void setClimbs(List<Climb> newClimbs) {
         mClimbs.clear();
         if (newClimbs != null) {
+            // Sort the list based on the id property in descending order
+            Collections.sort(newClimbs, new Comparator<Climb>() {
+                @Override
+                public int compare(Climb o1, Climb o2) {
+                    return Long.compare(o2.getId(), o1.getId());
+                }
+            });
             mClimbs.addAll(newClimbs);
         }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -93,13 +96,13 @@ public class ClimbsAdapter extends RecyclerView.Adapter<ClimbsAdapter.ClimbViewH
             mNotesTextView = itemView.findViewById(R.id.climb_notes);
             mCountTextView = itemView.findViewById(R.id.climb_count);
         }
-
         public void bind(Climb climb, int position) {
             mClimb = climb;
             mNameTextView.setText("Grade: " + mClimb.getName());
             mDateTextView.setText("Date: " + mClimb.getDate().toString());
             mNotesTextView.setText("Notes: " + mClimb.getNotes());
-            mCountTextView.setText("Climb: " + mClimb.getId());
+            int climbNumber = getItemCount() - position;
+            mCountTextView.setText("Climb: " + climbNumber);
             if (mDateTextView != null) {
                 mDateTextView.setText("Date: " + mClimb.getDate().toString());
             }

@@ -34,7 +34,7 @@ public class ViewClimbsActivity extends AppCompatActivity {
         LiveData<List<Climb>> liveData = getClimbs();
 
         // Create a new instance of the ClimbsAdapter and pass in the LiveData and the ClimbRepository
-        mAdapter = new ClimbsAdapter(mClimbRepository);
+        mAdapter = new ClimbsAdapter(mClimbRepository, mClimbsRecyclerView);
 
         // Set the adapter for the RecyclerView
         mClimbsRecyclerView.setAdapter(mAdapter);
