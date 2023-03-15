@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/date_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_edit_text"
+        android:hint="Date (DD-MM-YYYY)"
+        android:inputType="date"
+        android:minHeight="48dp" />
+
+    <LinearLayout
+        android:id="@+id/emoji_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_edit_text"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/emoji_1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/emoji_1"
+            android:tag="1" />
+
+        <ImageView
+            android:id="@+id/emoji_2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/emoji_2"
+            android:tag="2" />
+
+        <ImageView
+            android:id="@+id/emoji_3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/emoji_3"
+            android:tag="2" />
+
+
+        <ImageView
+            android:id="@+id/emoji_4"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/emoji_4"
+            android:tag="2" />
+        <ImageView
+            android:id="@+id/emoji_5"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/emoji_5"
+            android:tag="2" />
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/notes_edit_text"
+        android:layout_below="@id/emoji_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notes_edit_text"
+        android:text="Save"
+        android:backgroundTint="@color/button_background" />
+
+    <Button
+        android:id="@+id/view_climbs_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/save_button"
+        android:text="View Climbs"
+        android:backgroundTint="@color/button_background" />
+
+    <Spinner
+        android:id="@+id/climb_name_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/name_edit_text"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        android:entries="@array/climb_names" />
+
+</RelativeLayout>

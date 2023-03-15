@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Climbing log</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="climb_activity_label">View Climbs</string>
+    <string name="climb_title">Climb Title</string>
+
+    <string-array name="climb_names">
+        <item>4a</item>
+        <item>4b</item>
+        <item>4c</item>
+        <item>5a</item>
+        <item>5b</item>
+        <item>5c</item>
+        <item>6a</item>
+        <item>6b</item>
+        <item>6c</item>
+    </string-array>
+
+
+</resources>
