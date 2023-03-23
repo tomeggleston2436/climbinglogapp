@@ -10,6 +10,7 @@
     <color name="highlight_color">#FA9400</color>
     <color name="colorPrimary">#ED9715</color>
     <color name="button_background">#FF7002</color>
+    <color name="background_main">#FFFCEC</color>
 
 
 </resources>

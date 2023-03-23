@@ -97,11 +97,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Retrieve data from EditText fields and insert new climb record into database
-                EditText nameEditText = findViewById(R.id.name_edit_text);
+
                 EditText dateEditText = findViewById(R.id.date_edit_text);
                 EditText notesEditText = findViewById(R.id.notes_edit_text);
 
-                String name = nameEditText.getText().toString();
+
                 String date = dateEditText.getText().toString();
                 String notes = notesEditText.getText().toString();
                 //dropdown grade
